@@ -79,4 +79,18 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+    @Override
+    public int updateContact(User user) {
+        String update = "UPDATE users SET email = ? WHERE username = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(update);
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getUsername());
+            stmt.executeUpdate();
+            return 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating contact info", e);
+        }
+    }
+
 }
