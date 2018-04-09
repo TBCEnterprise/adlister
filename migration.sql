@@ -5,9 +5,9 @@ CREATE TABLE adlister_db.ads
     title varchar(240) NOT NULL,
     description text NOT NULL
 );
-INSERT INTO adlister_db.ads (id, user_id, title, description) VALUES (1, 641, 'ads', 'whats up
+INSERT INTO adlister_db.ads (id, userId, title, description) VALUES (1, 641, 'ads', 'whats up
 ');
-INSERT INTO adlister_db.ads (id, user_id, title, description) VALUES (2, 652, 'gross', 'clean that shit off my screen nicole
+INSERT INTO adlister_db.ads (id, userId, title, description) VALUES (2, 652, 'gross', 'clean that shit off my screen nicole
 ');
 CREATE TABLE adlister_db.category
 (
