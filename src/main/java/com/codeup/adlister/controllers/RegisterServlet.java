@@ -18,6 +18,9 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String phone = request.getParameter("phone");
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
 
@@ -34,7 +37,7 @@ public class RegisterServlet extends HttpServlet {
 
 
         // create and save a new user
-        User user = new User(username, email, password);
+        User user = new User(username, email, password, firstName, lastName, phone);
         DaoFactory.getUsersDao().insert(user);
         response.sendRedirect("/profile");
     }
