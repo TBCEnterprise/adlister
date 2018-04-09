@@ -11,10 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet (name = "update", urlPatterns = "/update")
-public class ChangeInfoServlet extends HttpServlet {
+@WebServlet (name = "update", urlPatterns = "/update-pass")
+public class UpdatePassServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/update.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/update-pass.jsp").forward(request,
+                                                                       response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -35,6 +36,7 @@ public class ChangeInfoServlet extends HttpServlet {
 
         user.setPassword(password);
         DaoFactory.getUsersDao().updatePassword(user);
+        request.setAttribute("confirmation", "Your password was updated successfully.");
         response.sendRedirect("/profile");
     }
 }

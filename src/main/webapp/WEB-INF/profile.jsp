@@ -3,15 +3,17 @@
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="Your Profile" />
+        <jsp:param name="title" value="${sessionScope.user.username}'s Profile" />
     </jsp:include>
 </head>
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
     <div class="container">
+        <div style="color: green;"><c:out value="${confirmation}"/></div>
         <h1>Welcome, <c:out value="${sessionScope.user.username}"/>!</h1>
-        <a href="/update">Change password?</a>
+        <a href="/update-pass">Update Password</a>
+        <a href="/update-contact">Update Contact Info</a>
     </div>
 
 </body>
