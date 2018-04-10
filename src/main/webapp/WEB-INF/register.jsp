@@ -38,6 +38,15 @@
                 <label for="confirm_password">Confirm Password</label>
                 <input id="confirm_password" name="confirm_password" class="form-control" type="password">
             </div>
+            <%--added by mccool--%>
+            <div>
+                <h3> Choose File to Upload in Server </h3>
+
+                <input type="file" name="file" />
+                <input type="submit" value="upload" />
+
+            </div>
+            <%--|||||||||||||--%>
             <input type="submit" class="btn btn-primary btn-block">
         </form>
     </div>

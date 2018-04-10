@@ -10,6 +10,34 @@ public class Ad {
     private String description;
     private String username;
 
+//    my stuff |||||||||||||||||||||||||||||
+
+    private String image;
+
+    public Ad(String cat_title, String create_date, long cat_id, long id, long userId, String title, String description, String username, String image) {
+        this.cat_title = cat_title;
+        this.create_date = create_date;
+        this.cat_id = cat_id;
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.username = username;
+        this.image = image;
+    }
+
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+//    ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
     public Ad(long id, long userId, String title, String description) {
         this.id = id;
         this.userId = userId;

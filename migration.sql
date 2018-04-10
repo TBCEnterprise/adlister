@@ -1,8 +1,30 @@
 use adlister_db;
 
+DROP TABLE IF EXISTS ad_cat_piv;
 DROP TABLE IF EXISTS ads;
-DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS category;
+
+
+CREATE TABLE adlister_db.ad_cat_piv
+(
+    ads_id mediumint(8) unsigned,
+    cats_id int(11) unsigned NOT NULL,
+    CONSTRAINT ads_fk FOREIGN KEY (ads_id) REFERENCES ads (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT cat_fk FOREIGN KEY (cats_id) REFERENCES category (category_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE adlister_db.ads
+(
+    id mediumint(8) unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    title varchar(200) NOT NULL,
+    description varchar(500),
+    image LONGBLOB
+    create_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    userId mediumint(8) unsigned NOT NULL,
+    cat_id int(10) unsigned NOT NULL,
+    CONSTRAINT user_fk FOREIGN KEY (userId) REFERENCES users (id)
+);
 
 CREATE TABLE adlister_db.users
 (
@@ -15,37 +37,19 @@ CREATE TABLE adlister_db.users
     phone int(14) unsigned NOT NULL
 );
 
-CREATE UNIQUE INDEX id_UNIQUE ON adlister_db.users (id);
-CREATE UNIQUE INDEX username_UNIQUE ON adlister_db.users (username);
-CREATE UNIQUE INDEX email_UNIQUE ON adlister_db.users (email);
-
 CREATE TABLE adlister_db.category
 (
     category_id int(10) unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
     cat_title varchar(45) NOT NULL
 );
 
-CREATE TABLE adlister_db.ads
-(
-    id mediumint(8) unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    title varchar(200) NOT NULL,
-    description varchar(500),
-    create_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    userId mediumint(8) unsigned NOT NULL,
-    cat_id int(10) unsigned NOT NULL,
-    CONSTRAINT user_fk FOREIGN KEY (userId) REFERENCES users (id)
-);
+
+CREATE UNIQUE INDEX id_UNIQUE ON adlister_db.users (id);
+CREATE UNIQUE INDEX username_UNIQUE ON adlister_db.users (username);
+CREATE UNIQUE INDEX email_UNIQUE ON adlister_db.users (email);
 
 CREATE UNIQUE INDEX id_UNIQUE ON adlister_db.ads (id);
 CREATE INDEX user_fk_idx ON adlister_db.ads (userId);
-
-CREATE TABLE adlister_db.ad_cat_piv
-(
-    ads_id mediumint(8) unsigned,
-    cats_id int(11) unsigned NOT NULL,
-    CONSTRAINT ads_fk FOREIGN KEY (ads_id) REFERENCES ads (id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT cat_fk FOREIGN KEY (cats_id) REFERENCES category (category_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
 CREATE INDEX ads_fk ON adlister_db.ad_cat_piv (ads_id);
 CREATE INDEX cat_fk ON adlister_db.ad_cat_piv (cats_id);
