@@ -26,7 +26,10 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> all() {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads JOIN users u on ads.user_id = u.id");
+            stmt = connection.prepareStatement(
+                    "SELECT * FROM ads LEFT JOIN users u ON ads.userId = u.id " +
+                            "LEFT JOIN ad_cat_piv a ON ads.id = a.ads_id " +
+                            "LEFT JOIN category c ON a.cats_id = c.category_id");
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
@@ -37,13 +40,16 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
+            String insertQuery = "INSERT INTO ads(userId, title, description, cat_id," +
+                    " create_date) VALUES (?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
 
             stmt.setLong(1, ad.getUserId());
             stmt.setString(2, ad.getTitle());
             stmt.setString(3, ad.getDescription());
+            stmt.setLong(4, ad.getCat_id());
+            stmt.setString(5, ad.getCreate_date());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -86,17 +92,19 @@ public class MySQLAdsDao implements Ads {
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
             rs.getLong("id"),
-            rs.getLong("user_id"),
+            rs.getLong("userId"),
             rs.getString("title"),
             rs.getString("description"),
-            rs.getString("username")
+            rs.getString("username"),
+            rs.getLong("cat_id"),
+            rs.getString("create_date")
         );
     }
 
     @Override
     public Ad findById(long id) {
         String query = "SELECT * FROM ads\n" +
-                        "JOIN users u on ads.user_id = u.id\n" +
+                        "JOIN users u on ads.userId = u.id\n" +
                         "WHERE ads.id = ? LIMIT 1";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);

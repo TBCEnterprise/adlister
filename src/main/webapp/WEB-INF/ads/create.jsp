@@ -18,6 +18,16 @@
                 <label for="description">Description</label>
                 <textarea id="description" name="description" class="form-control" type="text"></textarea>
             </div>
+            <div class="form-group">
+                <label for="cat_id">Category</label>
+                <select id="cat_id" name="cat_id" class="form-control" type="text">
+                    <option name="cars" value="1">Cars</option>
+                    <option name="electronics" value="2">Electronics</option>
+                    <option name="furniture" value="3">Furniture</option>
+                    <option name="pets" value="4">Pets</option>
+                    <option name="jobs" value="5">Jobs</option>
+                </select>
+            </div>
             <input type="submit" class="btn btn-block btn-primary">
         </form>
     </div>

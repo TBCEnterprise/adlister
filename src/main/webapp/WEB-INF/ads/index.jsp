@@ -21,6 +21,9 @@
                 <small class="sm-col-3">
                     Posted By: <c:out value="${ad.username}"/>
                 </small>
+                <small>
+                    Date: <c:out value="${ad.create_date}"/>
+                </small>
                 <a href="/ads/ad?id=${ad.id}"
                    class="btn btn-secondary offset-sm-8" sm-col-4>Check it out</a>
             </div>

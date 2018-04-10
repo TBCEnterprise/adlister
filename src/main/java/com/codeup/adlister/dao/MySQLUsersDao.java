@@ -70,35 +70,26 @@ public abstract class MySQLUsersDao implements Users {
         }
     }
 
-    public void updateEmail (String email, Long id){
-        String query = "UPDATE users SET email=? WHERE id=?";
+    @Override
+    public int updateContact(User user) {
+        String update = "UPDATE users " +
+                "SET email = ?," +
+                "first_name = ?," +
+                "last_name = ?," +
+                "phone = ? " +
+                "WHERE username = ?";
         try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, email);
-            stmt.setLong(2, id);
+            PreparedStatement stmt = connection.prepareStatement(update);
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getFirstName());
+            stmt.setString(3, user.getLastName());
+            stmt.setString(4, user.getPhoneNumber());
+            stmt.setString(5, user.getUsername());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-    //Function gets userId from the user based on username.
-//    @Override
-//    public Long userId(String username) {
-//        String query = "SELECT id FROM users WHERE username=?";
-//        try {
-//            PreparedStatement stmt = connection.prepareStatement(query);
-//            stmt.setString(1, username);
-//            ResultSet rs = stmt.executeQuery();
-//            while(rs.next()){
-//                return rs.getLong("id");
-//            }
-//        } catch (SQLException e) {
-//
-//            throw new RuntimeException("There was an error retrieving the ID " + e.getMessage());
-//        }
-//
-//    }
 
     private User extractUser(ResultSet rs) throws SQLException {
         if (!rs.next()) {
