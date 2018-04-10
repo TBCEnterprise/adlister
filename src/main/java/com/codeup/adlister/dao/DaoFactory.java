@@ -7,32 +7,15 @@ public class DaoFactory {
     private static Users usersDao;
     private static Config config = new Config();
 
-    public static Ads getAdsDao() {
+    public static Ads getAdsDao () {
         if (adsDao == null) {
             adsDao = new MySQLAdsDao(config);
-        }
-        return adsDao;
+        } return adsDao;
     }
 
-    public static Users getUsersDao() {
+    public static Users getUsersDao () {
         if (usersDao == null) {
-            usersDao = new MySQLUsersDao(config) {
-                @Override
-                public User findByUsername(String username) {
-                    return null;
-                }
-
-                @Override
-                public int updateContact(User user) {
-                    return 0;
-                }
-
-                @Override
-                public int updatePassword(User user) {
-                    return 0;
-                }
-            };
-        }
-        return usersDao;
+            usersDao = new MySQLUsersDao(config);
+        } return usersDao;
     }
 }

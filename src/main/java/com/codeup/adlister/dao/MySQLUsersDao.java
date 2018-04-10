@@ -81,14 +81,12 @@ public abstract class MySQLUsersDao implements Users {
         try {
             PreparedStatement stmt = connection.prepareStatement(update);
             stmt.setString(1, user.getEmail());
-            stmt.setString(2, user.getFirstName());
-            stmt.setString(3, user.getLastName());
-            stmt.setString(4, user.getPhoneNumber());
             stmt.setString(5, user.getUsername());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
     private User extractUser(ResultSet rs) throws SQLException {
@@ -100,6 +98,7 @@ public abstract class MySQLUsersDao implements Users {
                 rs.getString("username"),
                 rs.getString("password"),
                 rs.getString("email")
+
         );
     }
 
