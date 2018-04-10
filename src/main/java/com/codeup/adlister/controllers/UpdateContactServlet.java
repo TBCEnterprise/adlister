@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
+
 @WebServlet(name = "update-contact", urlPatterns = "/update-contact")
 public class UpdateContactServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -30,20 +31,20 @@ public class UpdateContactServlet extends HttpServlet {
 
         if (Password.check(password, user.getPassword())) {
             String newEmail = request.getParameter("email");
-            String newPhone = request.getParameter("phone-number");
+            String newFirstName = request.getParameter("firstName");
+            String newLastName = request.getParameter("lastName");
+            String newNumber = request.getParameter("phoneNumber");
 
-            boolean inputHasErrors = newEmail.isEmpty() && newPhone.isEmpty();
+            boolean noChangesMade = newEmail == null && newFirstName == null &&
+                    newLastName == null && newNumber == null;
 
-            if (inputHasErrors) {
-                request.setAttribute("message", "Please update either your email or phone number.");
-                response.sendRedirect("/profile");
-                return;
+            if (noChangesMade) {
+                request.setAttribute("change", "No Changes were made");
             } else {
                 user.setEmail(newEmail);
             }
         }
         DaoFactory.getUsersDao().updateContact(user);
-        request.setAttribute("confirmation", "Your contact information has been updated");
-        response.sendRedirect("/profile");
+
     }
 }
