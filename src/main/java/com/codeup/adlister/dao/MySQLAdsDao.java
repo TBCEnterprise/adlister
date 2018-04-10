@@ -60,16 +60,13 @@ public class MySQLAdsDao implements Ads {
     }
 
     private Ad extractAd(ResultSet rs) throws SQLException {
-        System.out.println("[MySQLAdsDao#extractAd] column count: " + rs.getMetaData()
-                .getColumnCount());
         return new Ad(
             rs.getLong("id"),
             rs.getLong("userId"),
             rs.getString("title"),
             rs.getString("description"),
             rs.getString("username"),
-            rs.getLong("cat_id"),
-            rs.getString("create_date")
+            rs.getLong("cat_id")
         );
     }
 
@@ -112,4 +109,25 @@ public class MySQLAdsDao implements Ads {
         }
         return ads;
     }
+
+    @Override
+    public int updateAd(String title, String description, long cat_id, long id) {
+        String update = "UPDATE ads " +
+                "SET title = ?," +
+                "description = ?," +
+                "cat_id = ? " +
+                "WHERE ads.id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(update);
+            stmt.setString(1, title);
+            stmt.setString(2, description);
+            stmt.setLong(3, cat_id);
+            stmt.setLong(4, id);
+            stmt.executeUpdate();
+            return 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating contact info", e);
+        }
+    }
+
 }

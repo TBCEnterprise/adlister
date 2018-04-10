@@ -14,18 +14,24 @@
     <small class="sm-col-12">Create an Ad below or check out what we have!</small>
 
     <c:forEach var="ad" items="${ads}">
-        <div class="card sm-col-8 m-3" style="width: 40%;">
+        <div class="card sm-col-12 m-3" style="width: 40%;">
             <div class="card-body">
                 <h5 class="card-title sm-col-3"><c:out value="${ad.title}"/></h5>
                 <p class="card-text sm-col-6"><c:out value="${ad.description}"/></p>
-                <small class="sm-col-3">
+                <p class="sm-col-3">
                     Posted By: <c:out value="${ad.username}"/>
-                </small>
-                <small>
+                </p>
+                <p>
                     Date: <c:out value="${ad.create_date}"/>
-                </small>
+                </p>
                 <a href="/ads/ad?id=${ad.id}"
                    class="btn btn-secondary offset-sm-8" sm-col-4>Check it out</a>
+                <c:set var="user" value="${sessionScope.user.username}"/>
+                <c:if test="${ad.username == user}">
+                    <a href="/ads/ad_edit?id=${ad.id}" class="btn btn-secondary offset-sm-8"
+                       sm-col-4>Edit</a>
+                    <a href="/ad_delete" class="btn btn-secondary offset-sm-8" sm-col-4>Delete</a>
+                </c:if>
             </div>
         </div>
     </c:forEach>
