@@ -26,25 +26,47 @@ public class UpdateContactServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
+        System.out.println(user.getUsername() + user.getPassword() + user.getFirstName
+                () + user.getLastName() + user.getEmail() + user.getPhoneNumber());
 
-        String password = request.getParameter("password");
-
-        if (Password.check(password, user.getPassword())) {
-            String newEmail = request.getParameter("email");
-            String newFirstName = request.getParameter("firstName");
-            String newLastName = request.getParameter("lastName");
-            String newNumber = request.getParameter("phoneNumber");
-
-            boolean noChangesMade = newEmail == null && newFirstName == null &&
-                    newLastName == null && newNumber == null;
-
-            if (noChangesMade) {
-                request.setAttribute("change", "No Changes were made");
-            } else {
-                user.setEmail(newEmail);
-            }
+        String newEmail = request.getParameter("email");
+        if (newEmail.isEmpty()) {
+            String email = user.getEmail();
+            user.setEmail(email);
+        } else {
+            user.setEmail(newEmail);
         }
-        DaoFactory.getUsersDao().updateContact(user);
+
+        String newFirstName = request.getParameter("firstName");
+        if (newFirstName.isEmpty()) {
+            String email = user.getFirstName();
+            user.setFirstName(email);
+        } else {
+            user.setFirstName(newFirstName);
+        }
+
+        String newLastName = request.getParameter("lastName");
+        if (newLastName.isEmpty()) {
+            String lastName = user.getLastName();
+            user.setLastName(lastName);
+        } else {
+            user.setLastName(newLastName);
+        }
+
+        String phoneNumber = request.getParameter("phoneNumber");
+        if (phoneNumber.isEmpty()) {
+            String phoneNum = user.getPhoneNumber();
+            user.setPhoneNumber(phoneNum);
+        } else {
+            user.setPhoneNumber(phoneNumber);
+        }
+        String password = request.getParameter("password");
+        if (Password.check(password, user.getPassword())) {
+            DaoFactory.getUsersDao().updateContact(user);
+            response.sendRedirect("/profile");
+        } else {
+            request.getAttribute("message");
+        }
 
     }
 }

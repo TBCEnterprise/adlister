@@ -34,8 +34,8 @@
             <div class="form-group">
                 <label for="phoneNumber">Phone number</label>
                 <input id="phoneNumber" name="phoneNumber" class="form-control"
-                       type="tel" placeholder="<c:out
-                       value="${sessionScope.user.phoneNumber}"/>">
+                       type="tel" placeholder=
+                               "<c:out value="${sessionScope.user.phoneNumber}"/>">
             </div>
             <h4>Enter your password to confirm the changes.</h4>
             <div class="form-group">
