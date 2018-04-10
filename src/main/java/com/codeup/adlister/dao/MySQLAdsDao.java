@@ -60,6 +60,8 @@ public class MySQLAdsDao implements Ads {
     }
 
     private Ad extractAd(ResultSet rs) throws SQLException {
+        System.out.println("[MySQLAdsDao#extractAd] column count: " + rs.getMetaData()
+                .getColumnCount());
         return new Ad(
             rs.getLong("id"),
             rs.getLong("userId"),
@@ -82,6 +84,21 @@ public class MySQLAdsDao implements Ads {
             ResultSet rs = stmt.executeQuery();
             rs.next();
             return extractAd(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding that ad", e);
+        }
+    }
+
+    @Override
+    public List<Ad> findByUserId(long id) {
+        String search = "SELECT * FROM ads JOIN users u on ads.userId = u.id WHERE u" +
+                ".id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(search);
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return createAdsFromResults(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error finding that ad", e);
         }

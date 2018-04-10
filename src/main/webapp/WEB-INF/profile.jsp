@@ -15,6 +15,7 @@
         <a href="/update-pass">Update Password</a>
         <a href="/update-contact">Update Contact Info</a>
     </div>
+    <jsp:include page="/WEB-INF/partials/user-ads.jsp"/>
 
 </body>
 </html>
