@@ -59,6 +59,36 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+    @Override
+    public List<Ad> showUserAds(String username) {
+        return null;
+    }
+
+    @Override
+    public List<Ad> search(String searchTerm, String username, String category) {
+        return null;
+    }
+
+    @Override
+    public List<Ad> searchByCategory(String category) {
+        return null;
+    }
+
+    @Override
+    public Ad showSpecificById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void delete(long id) {
+
+    }
+
+    @Override
+    public Long update(Ad ad) {
+        return null;
+    }
+
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
             rs.getLong("id"),
