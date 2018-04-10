@@ -26,40 +26,22 @@ public class UpdateContactServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("user");
-        System.out.println(user.getUsername() + user.getPassword() + user.getFirstName
-                () + user.getLastName() + user.getEmail() + user.getPhoneNumber());
 
         String newEmail = request.getParameter("email");
-        if (newEmail.isEmpty()) {
-            String email = user.getEmail();
-            user.setEmail(email);
-        } else {
-            user.setEmail(newEmail);
-        }
+        user.setEmail(newEmail);
+
 
         String newFirstName = request.getParameter("firstName");
-        if (newFirstName.isEmpty()) {
-            String email = user.getFirstName();
-            user.setFirstName(email);
-        } else {
-            user.setFirstName(newFirstName);
-        }
+        user.setFirstName(newFirstName);
+
 
         String newLastName = request.getParameter("lastName");
-        if (newLastName.isEmpty()) {
-            String lastName = user.getLastName();
-            user.setLastName(lastName);
-        } else {
-            user.setLastName(newLastName);
-        }
+        user.setLastName(newLastName);
+
 
         String phoneNumber = request.getParameter("phoneNumber");
-        if (phoneNumber.isEmpty()) {
-            String phoneNum = user.getPhoneNumber();
-            user.setPhoneNumber(phoneNum);
-        } else {
-            user.setPhoneNumber(phoneNumber);
-        }
+        user.setPhoneNumber(phoneNumber);
+
         String password = request.getParameter("password");
         if (Password.check(password, user.getPassword())) {
             DaoFactory.getUsersDao().updateContact(user);
