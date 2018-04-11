@@ -26,13 +26,15 @@ public class CreateAdServlet extends HttpServlet {
         User user = (User) request.getSession().getAttribute("user");
 
         long cat_id = Long.parseLong(request.getParameter("cat_id"));
+        long ad_id = Long.parseLong(request.getParameter("id"));
 
         Ad ad = new Ad(
+                ad_id,
             user.getId(),
             request.getParameter("title"),
             request.getParameter("description"),
-            cat_id,
-            request.getParameter("date")
+            user.getUsername(),
+            cat_id
         );
 
 
