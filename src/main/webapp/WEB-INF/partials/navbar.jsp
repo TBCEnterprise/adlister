@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="/ads">Adlister</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarToggler" aria-controls="navbarToggler"
@@ -28,7 +28,7 @@
         </ul>
     </div>
 </nav>
-<form class="form-group col-auto" action="/search" method="GET">
+<form class="dark form-group col-auto my-2" action="/search" method="GET">
     <div class="input-group mb-3">
         <input class="form-control ml-auto col-auto" type="search" placeholder="Search"
                aria-label="Search">

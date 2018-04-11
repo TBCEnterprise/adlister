@@ -28,26 +28,17 @@ public class UpdateContactServlet extends HttpServlet {
         User user = (User) request.getSession().getAttribute("user");
 
         String newEmail = request.getParameter("email");
-        user.setEmail(newEmail);
-
-
         String newFirstName = request.getParameter("firstName");
-        user.setFirstName(newFirstName);
-
-
         String newLastName = request.getParameter("lastName");
-        user.setLastName(newLastName);
-
-
         String phoneNumber = request.getParameter("phoneNumber");
-        user.setPhoneNumber(phoneNumber);
+        String userName = user.getUsername();
 
         String password = request.getParameter("password");
         if (Password.check(password, user.getPassword())) {
-            DaoFactory.getUsersDao().updateContact(user);
+            DaoFactory.getUsersDao().updateContact(newEmail, newFirstName, newLastName, phoneNumber, userName);
             response.sendRedirect("/profile");
         } else {
-            request.getAttribute("message");
+            request.setAttribute("message", "Password does not match our records");
         }
 
     }

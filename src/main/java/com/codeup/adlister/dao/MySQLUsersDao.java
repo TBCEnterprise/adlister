@@ -86,7 +86,7 @@ public class MySQLUsersDao implements Users {
     }
 
     @Override
-    public int updateContact(User user) {
+    public int updateContact(String email, String firstName, String lastName, String phone, String username) {
         String update = "UPDATE users " +
                 "SET email = ?," +
                 "first_name = ?," +
@@ -95,11 +95,11 @@ public class MySQLUsersDao implements Users {
                 "WHERE username = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(update);
-            stmt.setString(1, user.getEmail());
-            stmt.setString(2, user.getFirstName());
-            stmt.setString(3, user.getLastName());
-            stmt.setString(4, user.getPhoneNumber());
-            stmt.setString(5, user.getUsername());
+            stmt.setString(1, email);
+            stmt.setString(2, firstName);
+            stmt.setString(3, lastName);
+            stmt.setString(4, phone);
+            stmt.setString(5, username);
             stmt.executeUpdate();
             return 0;
         } catch (SQLException e) {

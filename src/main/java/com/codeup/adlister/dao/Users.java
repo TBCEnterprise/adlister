@@ -6,6 +6,5 @@ public interface Users {
     User findByUsername(String username);
     Long insert(User user);
     int updatePassword(User user);
-
-    int updateContact(User user);
+    int updateContact(String email, String firstName, String lastName, String phone, String username);
 }
