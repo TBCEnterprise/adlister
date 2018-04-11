@@ -8,33 +8,28 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-<div class="container">
-    <h2 class="create-ad"><a href="/ads/create" >Create New Ad</a></h2>
-    <h1 class="sm-col-12">Ad listings</h1>
-    <small class="sm-col-12">Create an Ad below or check out what we have!</small>
-
-    <c:forEach var="ad" items="${ads}">
-        <div class="card sm-col-12 m-3" style="width: 40%;">
-            <div class="card-body">
-                <h5 class="card-title sm-col-3"><c:out value="${ad.title}"/></h5>
-                <p class="card-text sm-col-6"><c:out value="${ad.description}"/></p>
-                <p class="sm-col-3">
-                    Posted By: <c:out value="${ad.username}"/>
-                </p>
-                <p>
-                    Date: <c:out value="${ad.create_date}"/>
-                </p>
-                <a href="/ads/ad?id=${ad.id}"
-                   class="btn btn-secondary offset-sm-8" sm-col-4>Check it out</a>
-                <c:set var="user" value="${sessionScope.user.username}"/>
-                <c:if test="${ad.username == user}">
-                    <a href="/ads/ad_edit?id=${ad.id}" class="btn btn-secondary offset-sm-8"
-                       sm-col-4>Edit</a>
-                    <a href="/ad_delete" class="btn btn-secondary offset-sm-8" sm-col-4>Delete</a>
-                </c:if>
+<div class="container-fluid">
+    <a href="/ads/create" class="create-ad btn btn-secondary">Create New Ad</a>
+    <h1 class="text-center">Ad listings</h1>
+    <h5 class="text-center">Create an Ad or check out what we have!</h5>
+    <div class="row col-12">
+        <c:forEach var="ad" items="${ads}">
+            <div class="card col-xl-3 col-lg-4 col-md-5 col-12 mx-auto my-3 p-1">
+                <h5 class="card-title"><c:out value="${ad.title}"/></h5>
+                <div class="body">
+                    <p><c:out value="${ad.description}"/></p>
+                    <p>Posted by: <c:out value="${ad.username}"/></p>
+                    <p>Date: <c:out value="${ad.create_date}"/></p>
+                    <a href="/ads/ad?id=${ad.id}" class="btn btn-secondary">Check it out</a>
+                    <c:set var="user" value="${sessionScope.user.username}"/>
+                    <c:if test="${ad.username == user}">
+                        <a href="/ads/ad_edit?id=${ad.id}" class="btn btn-secondary">Edit</a>
+                        <a href="/ad_delete?id=${ad.id}" class="btn btn-secondary">Delete</a>
+                    </c:if>
+                </div>
             </div>
-        </div>
-    </c:forEach>
+        </c:forEach>
+    </div>
 </div>
 </body>
 </html>
