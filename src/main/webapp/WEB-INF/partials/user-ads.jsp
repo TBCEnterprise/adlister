@@ -1,18 +1,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="userAdContainer">
-    <c:forEach items="${ads}" var="ad">
-        <div class="card sm-col-8 m-3" style="width: 40%;">
-            <div class="card-body">
-                <h5 class="card-title sm-col-3"><c:out value="${ad.title}"/></h5>
-                <p class="card-text sm-col-6"><c:out value="${ad.description}"/></p>
-                <p class="sm-col-3">
-                    Posted By: <c:out value="${ad.username}"/>
-                </p>
-                <p>
-                    Date: <c:out value="${ad.create_date}"/>
-                </p>
-                <a href="/ads/ad?id=${ad.id}" class="btn btn-secondary offset-sm-8" sm-col-4>Check it out</a>
+    <h3 class="text-center my-3">Your listings</h3>
+    <div class="row col-12 justify-content-center mx-auto">
+    <c:forEach var="ad" items="${ads}">
+            <div class="card col-md-4 col-12 mx-3 my-3 p-2 bg-dark text-white"
+                 style="width: 18rem;">
+                <a href="/ads/ad?id=${ad.id}" class="text-white">
+                    <div class="card-body">
+                        <h5 class="card-title"><c:out value="${ad.title}"/></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Posted by: <c:out value="${ad.username}"/></h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Date: <c:out value="${ad.create_date}"/></h6>
+                        <p class="card-text"><c:out value="${ad.description}"/></p>
+                        <c:set var="user" value="${sessionScope.user.username}"/>
+                        <c:if test="${ad.username == user}">
+                            <a href="/ads/ad_edit?id=${ad.id}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="/ad_delete?id=${ad.id}" class="btn btn-danger btn-sm">Delete</a>
+                        </c:if>
+                    </div>
+                </a>
             </div>
-        </div>
     </c:forEach>
-</div>
+    </div>
+

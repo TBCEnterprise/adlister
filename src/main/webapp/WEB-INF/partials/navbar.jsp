@@ -22,19 +22,27 @@
             </c:if>
             <c:if test="${sessionScope.user != null}">
                 <li class="nav-item text-right">
+                    <a class="nav-link" href="/update-contact">Contact Info</a>
+                </li>
+                <li class="nav-item text-right">
+                    <a class="nav-link" href="/update-pass">Change Pass</a>
+                </li>
+                <li class="nav-item text-right">
                     <a class="nav-link" href="/logout">Log Out</a>
                 </li>
             </c:if>
         </ul>
     </div>
 </nav>
-<form class="dark form-group col-auto my-2" action="/search" method="GET">
-    <div class="input-group mb-3">
-        <input class="form-control ml-auto col-auto" type="search" placeholder="Search"
-               aria-label="Search">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button">Search</button>
+<c:if test="${sessionScope.user != null}">
+    <form class="text-white d-inline-block form-group col-12 mx-auto my-2" action="/search" method="GET">
+        <div class="input-group mb-3">
+            <input class="form-control" type="search" placeholder="Search"
+                   aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</c:if>
 
