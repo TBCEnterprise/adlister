@@ -14,6 +14,10 @@
                 <label for="title">Title</label>
                 <input id="title" name="title" class="form-control" type="text">
             </div>
+            <div>
+                <label for="pic">Picture</label><br>
+                <input id="pic" name="pic" type="file">
+            </div>
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea id="description" name="description" class="form-control" type="text"></textarea>

@@ -1,5 +1,8 @@
 package com.codeup.adlister.models;
 
+import java.io.InputStream;
+import java.sql.Blob;
+
 public class Ad {
     private String cat_title;
     private String create_date;
@@ -9,6 +12,19 @@ public class Ad {
     private String title;
     private String description;
     private String username;
+    private Blob pic;
+
+    public Ad(String cat_title, String create_date, long cat_id, long id, long userId, String title, String description, String username, Blob pic) {
+        this.cat_title = cat_title;
+        this.create_date = create_date;
+        this.cat_id = cat_id;
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.username = username;
+        this.pic = pic;
+    }
 
     public Ad(long id, long userId, String title, String description) {
         this.id = id;
@@ -52,6 +68,14 @@ public class Ad {
         this.description = description;
         this.username = username;
         this.cat_id = cat_id;
+    }
+
+    public Blob getPic() {
+        return pic;
+    }
+
+    public void setPic(Blob pic) {
+        this.pic = pic;
     }
 
     public long getId() {

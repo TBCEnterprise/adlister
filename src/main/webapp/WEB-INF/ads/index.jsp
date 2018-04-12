@@ -18,6 +18,7 @@
                class="card col-xl-3 col-lg-4 col-md-5 col-12 mx-3 my-3 p-2 bg-dark text-white">
                     <h5 class="card-title"><c:out value="${ad.title}"/></h5>
                     <div class="body">
+                        <%--<p><c:out value="${ad.pic}"></p>--%>
                         <p><c:out value="${ad.description}"/></p>
                         <p>Posted by: <c:out value="${ad.username}"/></p>
                         <p>Date: <c:out value="${ad.create_date}"/></p>

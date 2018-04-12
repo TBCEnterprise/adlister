@@ -13,6 +13,7 @@
                 <c:out value="${ad.title}"/>
             </h1>
             <span class="d-inline-block text-truncate" style="max-width: 150px;">
+                <p><c:out value="${ad.pic}"></p>
                 <p><c:out value="${ad.description}"/> </p>
             </span>
             <p><c:out value="${ad.username}"/></p>
