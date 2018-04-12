@@ -7,5 +7,6 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp"/>
+    <jsp:include page="/WEB-INF/partials/user-ads.jsp"/>
 </body>
 </html>

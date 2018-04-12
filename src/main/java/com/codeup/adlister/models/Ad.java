@@ -27,31 +27,36 @@ public class Ad {
         this.create_date = create_date;
     }
 
-    public Ad(long user_id, String title, String description, String cat_title, String
-            create_date) {
+    public Ad(long user_id, String title, String description,String username, long
+            cat_id) {
         this.userId = user_id;
         this.title = title;
         this.description = description;
-        this.cat_title = cat_title;
-        this.create_date = create_date;
+        this.username = username;
+        this.cat_id = cat_id;
     }
 
     public Ad(long id, long userId, String title, String description, String username,
-              long cat_id) {
+              long cat_id, String create_date) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.username = username;
         this.cat_id = cat_id;
+        this.create_date = create_date;
     }
 
-    public Ad(long id, String newTitle, String newDesc, String username, long cat_id) {
+    public Ad(long id, long userId, String title, String description, String username, long cat_id, String cat_title, String create_date) {
         this.id = id;
+        this.userId = userId;
         this.title = title;
         this.description = description;
         this.username = username;
         this.cat_id = cat_id;
+        this.cat_title = cat_title;
+        this.create_date = create_date;
+
     }
 
     public long getId() {

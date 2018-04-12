@@ -2,6 +2,11 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,15 +71,19 @@ public class MySQLAdsDao implements Ads {
             rs.getString("title"),
             rs.getString("description"),
             rs.getString("username"),
-            rs.getLong("cat_id")
+            rs.getLong("cat_id"),
+            rs.getString("cat_title"),
+            rs.getString("create_date")
         );
     }
 
     @Override
     public Ad findById(long id) {
-        String query = "SELECT * FROM ads\n" +
-                        "JOIN users u on ads.userId = u.id\n" +
-                        "WHERE ads.id = ? LIMIT 1";
+        String query = "SELECT t.*, t2.username, t3.cat_title " +
+                    "FROM ads t LEFT JOIN users t2 ON t.userId = t2.id " +
+                    "LEFT JOIN ad_cat_piv ON cat_id " +
+                    "LEFT JOIN category t3 ON ad_cat_piv.cats_id = t3.category_id " +
+                    "WHERE t.id = ? LIMIT 1";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
@@ -88,11 +97,34 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public List<Ad> findByUserId(long id) {
-        String search = "SELECT * FROM ads JOIN users u on ads.userId = u.id WHERE u" +
-                ".id = ?";
+        String search = "SELECT * FROM ads " +
+                        "LEFT JOIN users t2 on ads.userId = t2.id " +
+                        "LEFT JOIN ad_cat_piv a on ads.id = a.ads_id " +
+                        "LEFT JOIN category t3 ON a.cats_id = t3.category_id " +
+                        "WHERE ads.userId = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(search);
             stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            return createAdsFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding that ad", e);
+        }
+    }
+
+    @Override
+    public List<Ad> findByCat(String search) {
+        String query = "SELECT *, t2.username FROM ads " +
+                        "LEFT JOIN users t2 ON ads.userId = t2.id " +
+                        "LEFT JOIN ad_cat_piv " +
+                        "ON ad_cat_piv.ads_id " +
+                        "LEFT JOIN category c " +
+                        "ON ad_cat_piv.cats_id = c.category_id " +
+                        "WHERE cat_title LIKE ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, search);
             ResultSet rs = stmt.executeQuery();
             rs.next();
             return createAdsFromResults(rs);
@@ -130,4 +162,18 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+
+    @Override
+    public long insertPiv(long id, long cat_id) {
+        String query = "INSERT INTO ad_cat_piv(ads_id, cats_id) VALUES (?, ? )";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, id);
+            stmt.setLong(2, cat_id);
+            stmt.executeUpdate();
+            return 0;
+        }catch(SQLException e) {
+            throw new RuntimeException("Whoops");
+        }
+    }
 }

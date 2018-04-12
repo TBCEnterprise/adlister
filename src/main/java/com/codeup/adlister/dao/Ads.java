@@ -2,6 +2,7 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public interface Ads {
@@ -17,5 +18,9 @@ public interface Ads {
     // get a list of all ads created by a user
     List<Ad> findByUserId(long id);
 
+    List<Ad> findByCat(String cat_title);
+
     int updateAd(String title, String description, long cat_id, long id);
+
+    long insertPiv(long id, long cat_id);
 }

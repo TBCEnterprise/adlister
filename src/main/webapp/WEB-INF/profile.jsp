@@ -9,8 +9,7 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container-fluid">
-    <h2 class="text-center my-3">Welcome, <c:out
-            value="${sessionScope.user.username}"/>!</h2>
+    <h2 class="text-center my-3">Welcome, <c:out value="${sessionScope.user.username}"/>!</h2>
     <jsp:include page="/WEB-INF/partials/user-ads.jsp"/>
 </div>
 </body>
