@@ -26,9 +26,19 @@ public class MySQLUsersDao implements Users {
     @Override
     public User findByUsername(String username) {
         String query = "SELECT * FROM users WHERE username = ? LIMIT 1";
+        return getUser(username, query);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        String query = "SELECT * FROM users WHERE email = ? LIMIT 1";
+        return getUser(email, query);
+    }
+
+    public User getUser(String check, String query) {
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, username);
+            stmt.setString(1, check);
             return extractUser(stmt.executeQuery());
         } catch (SQLException e) {
             throw new RuntimeException("Error finding a user by username", e);

@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="user" value="${sessionScope.user.username}"/>
         <h3 class="text-center my-3">Current listings</h3>
-        <a href="/ads/create" class="btn">Create new ad</a>
+        <a href="/ads/create" class="btn btn-dark ml-3">Create new ad</a>
     <div class="row col-12 justify-content-center mx-auto">
     <c:forEach var="ad" items="${ads}">
             <div class="card col-md-4 col-12 mx-3 my-3 p-2 bg-dark text-white"
@@ -17,7 +17,8 @@
                                 value="${ad.cat_title}"/></h6>
                         <c:if test="${ad.username == user}">
                             <a href="/ads/ad_edit?id=${ad.id}" class="btn btn-primary btn-sm">Edit</a>
-                            <a href="/ad_delete?id=${ad.id}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="/ads/delete?id=${ad.id}"
+                               class="btn btn-danger btn-sm">Delete</a>
                         </c:if>
                     </div>
                 </a>

@@ -18,9 +18,19 @@ public interface Ads {
     // get a list of all ads created by a user
     List<Ad> findByUserId(long id);
 
-    List<Ad> findByCat(String cat_title);
 
+    List<Ad> findBy(String search);
+
+    List<Ad> lastThree();
+
+    // update an ad via AdEditServlet
     int updateAd(String title, String description, long cat_id, long id);
 
+    // inserts pivot table entries when new adds are created
     long insertPiv(long id, long cat_id);
+
+    // deletes an ad based on ad id. user must confirm with stored password
+    int deleteAd(long id);
+
+
 }

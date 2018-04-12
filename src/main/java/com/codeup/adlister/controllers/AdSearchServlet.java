@@ -20,7 +20,10 @@ public class AdSearchServlet extends HttpServlet {
         }
 
         String search = "%" + request.getParameter("search") + "%";
-        List<Ad> ads = DaoFactory.getAdsDao().findByCat(search);
+
+
+        List<Ad> ads = DaoFactory.getAdsDao().findBy(search);
+
         request.setAttribute("ads", ads);
         request.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(request, response);
     }
