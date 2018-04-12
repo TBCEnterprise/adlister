@@ -106,7 +106,6 @@ public class MySQLAdsDao implements Ads {
             PreparedStatement stmt = connection.prepareStatement(search);
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
-            rs.next();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error finding that ad", e);
@@ -115,18 +114,18 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public List<Ad> findByCat(String search) {
-        String query = "SELECT *, t2.username FROM ads " +
-                        "LEFT JOIN users t2 ON ads.userId = t2.id " +
-                        "LEFT JOIN ad_cat_piv " +
-                        "ON ad_cat_piv.ads_id " +
-                        "LEFT JOIN category c " +
-                        "ON ad_cat_piv.cats_id = c.category_id " +
-                        "WHERE cat_title LIKE ?";
+        String query = "SELECT ads.*, u.username, c.cat_title " +
+                       "FROM ads " +
+                       "LEFT JOIN users u on ads.userId = u.id " +
+                       "LEFT JOIN ad_cat_piv " +
+                       "ON ads.id = ad_cat_piv.ads_id " +
+                       "LEFT JOIN category c " +
+                       "ON ad_cat_piv.cats_id = c.category_id " +
+                       "WHERE c.cat_title LIKE ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, search);
             ResultSet rs = stmt.executeQuery();
-            rs.next();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error finding that ad", e);
@@ -137,7 +136,8 @@ public class MySQLAdsDao implements Ads {
     private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
         List<Ad> ads = new ArrayList<>();
         while (rs.next()) {
-            ads.add(extractAd(rs));
+            Ad ad = extractAd(rs);
+            ads.add(ad);
         }
         return ads;
     }
