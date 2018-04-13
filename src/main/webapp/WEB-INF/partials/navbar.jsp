@@ -35,14 +35,20 @@
     </div>
 </nav>
 <c:if test="${sessionScope.user != null}">
-    <form class="text-white d-inline-block form-group col-12 mx-auto my-2" action="/search" method="GET">
+    <form class="text-white d-inline-block form-group col-12 mx-auto my-2"
+          action="/search" method="GET">
         <div class="input-group mb-3">
-            <input class="form-control" id="search" name="search" type="search" placeholder="Search"
+            <input class="form-control" id="search" name="search" type="search"
+                   placeholder="Search"
                    aria-label="Search">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button">Search</button>
             </div>
         </div>
     </form>
+    <p class="text-danger text-center mb-5">
+        <c:out value="${sessionScope.message}"/>
+        <c:remove var="message" scope="session"/>
+    </p>
 </c:if>
 

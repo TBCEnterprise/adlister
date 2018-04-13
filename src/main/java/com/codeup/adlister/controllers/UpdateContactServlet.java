@@ -16,6 +16,7 @@ import java.io.IOException;
 @WebServlet(name = "update-contact", urlPatterns = "/update-contact")
 public class UpdateContactServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.getSession().setAttribute("url", "/update-contact");
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
             return;

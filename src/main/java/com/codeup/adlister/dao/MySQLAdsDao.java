@@ -3,10 +3,6 @@ package com.codeup.adlister.dao;
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +14,9 @@ public class MySQLAdsDao implements Ads {
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
-                config.getUrl(),
-                config.getUser(),
-                config.getPassword()
+                    config.getUrl(),
+                    config.getUser(),
+                    config.getPassword()
             );
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
@@ -67,25 +63,25 @@ public class MySQLAdsDao implements Ads {
 
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
-            rs.getLong("id"),
-            rs.getLong("userId"),
-            rs.getString("title"),
-            rs.getString("description"),
-            rs.getString("username"),
-            rs.getLong("cat_id"),
-            rs.getString("cat_title"),
-            rs.getString("create_date"),
-            rs.getString("pic")
+                rs.getLong("id"),
+                rs.getLong("userId"),
+                rs.getString("title"),
+                rs.getString("description"),
+                rs.getString("username"),
+                rs.getLong("cat_id"),
+                rs.getString("cat_title"),
+                rs.getString("create_date"),
+                rs.getString("pic")
         );
     }
 
     @Override
     public Ad findById(long id) {
         String query = "SELECT t.*, t2.username, t3.cat_title " +
-                    "FROM ads t LEFT JOIN users t2 ON t.userId = t2.id " +
-                    "LEFT JOIN ad_cat_piv ON cat_id " +
-                    "LEFT JOIN category t3 ON ad_cat_piv.cats_id = t3.category_id " +
-                    "WHERE t.id = ? LIMIT 1";
+                "FROM ads t LEFT JOIN users t2 ON t.userId = t2.id " +
+                "LEFT JOIN ad_cat_piv ON cat_id " +
+                "LEFT JOIN category t3 ON ad_cat_piv.cats_id = t3.category_id " +
+                "WHERE t.id = ? LIMIT 1";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
@@ -100,10 +96,10 @@ public class MySQLAdsDao implements Ads {
     @Override
     public List<Ad> findByUserId(long id) {
         String search = "SELECT * FROM ads " +
-                        "LEFT JOIN users t2 on ads.userId = t2.id " +
-                        "LEFT JOIN ad_cat_piv a on ads.id = a.ads_id " +
-                        "LEFT JOIN category t3 ON a.cats_id = t3.category_id " +
-                        "WHERE ads.userId = ?";
+                "LEFT JOIN users t2 on ads.userId = t2.id " +
+                "LEFT JOIN ad_cat_piv a on ads.id = a.ads_id " +
+                "LEFT JOIN category t3 ON a.cats_id = t3.category_id " +
+                "WHERE ads.userId = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(search);
             stmt.setLong(1, id);
@@ -117,15 +113,15 @@ public class MySQLAdsDao implements Ads {
     @Override
     public List<Ad> findBy(String search) {
         String query = "SELECT ads.*, u.username, c.cat_title " +
-                       "FROM ads " +
-                       "LEFT JOIN users u on ads.userId = u.id " +
-                       "LEFT JOIN ad_cat_piv " +
-                       "ON ads.id = ad_cat_piv.ads_id " +
-                       "LEFT JOIN category c " +
-                       "ON ad_cat_piv.cats_id = c.category_id " +
-                       "WHERE c.cat_title LIKE ? " +
-                       "OR u.username LIKE ? " +
-                       "OR ads.title LIKE ?";
+                "FROM ads " +
+                "LEFT JOIN users u on ads.userId = u.id " +
+                "LEFT JOIN ad_cat_piv " +
+                "ON ads.id = ad_cat_piv.ads_id " +
+                "LEFT JOIN category c " +
+                "ON ad_cat_piv.cats_id = c.category_id " +
+                "WHERE c.cat_title LIKE ? " +
+                "OR u.username LIKE ? " +
+                "OR ads.title LIKE ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, search);
@@ -141,10 +137,10 @@ public class MySQLAdsDao implements Ads {
     @Override
     public List<Ad> lastThree() {
         String query = "SELECT * FROM ads LEFT JOIN users u " +
-                       "ON ads.userId = u.id " +
-                       "LEFT JOIN ad_cat_piv a ON ads.id = a.ads_id " +
-                       "LEFT JOIN category c ON a.cats_id = c.category_id " +
-                       "ORDER BY create_date DESC LIMIT 3";
+                "ON ads.userId = u.id " +
+                "LEFT JOIN ad_cat_piv a ON ads.id = a.ads_id " +
+                "LEFT JOIN category c ON a.cats_id = c.category_id " +
+                "ORDER BY create_date DESC LIMIT 3";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
@@ -153,7 +149,6 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error retrieving all ads.", e);
         }
     }
-
 
 
     private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
@@ -189,13 +184,13 @@ public class MySQLAdsDao implements Ads {
     @Override
     public long insertPiv(long id, long cat_id) {
         String query = "INSERT INTO ad_cat_piv(ads_id, cats_id) VALUES (?, ? )";
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
             stmt.setLong(2, cat_id);
             stmt.executeUpdate();
             return 0;
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Whoops");
         }
     }
@@ -203,12 +198,12 @@ public class MySQLAdsDao implements Ads {
     @Override
     public int deleteAd(long id) {
         String query = "DELETE FROM ads WHERE ads.id = ?";
-        try{
+        try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
             stmt.executeUpdate();
             return 0;
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Cannot delete that Ad");
         }
     }

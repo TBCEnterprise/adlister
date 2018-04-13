@@ -14,13 +14,12 @@ import java.io.IOException;
 @WebServlet (name = "update", urlPatterns = "/update-pass")
 public class UpdatePassServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
+        request.getSession().setAttribute("url", "/update-pass");
+        if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
             return;
         }
-        request.getRequestDispatcher("/WEB-INF/update-pass.jsp").forward(request,
-                                                                       response);
+        request.getRequestDispatcher("/WEB-INF/update-pass.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

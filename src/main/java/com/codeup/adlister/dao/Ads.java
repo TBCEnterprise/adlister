@@ -2,7 +2,6 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 public interface Ads {
@@ -18,9 +17,10 @@ public interface Ads {
     // get a list of all ads created by a user
     List<Ad> findByUserId(long id);
 
-
+    // allow search by title, user, category
     List<Ad> findBy(String search);
 
+    // returns last 3 items posted to provide carousel contents
     List<Ad> lastThree();
 
     // update an ad via AdEditServlet

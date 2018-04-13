@@ -15,14 +15,19 @@ import java.util.List;
 @WebServlet(name = "search", urlPatterns = "/search")
 public class AdSearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if(request.getSession().getAttribute("user") == null) {
+        if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
+            return;
         }
 
         String search = "%" + request.getParameter("search") + "%";
-
-
         List<Ad> ads = DaoFactory.getAdsDao().findBy(search);
+        if(ads.isEmpty()) {
+            request.getSession().setAttribute("message", "Sorry, please edit your " +
+                    "search and try again.");
+        response.sendRedirect("/ads");
+            return;
+        }
 
         request.setAttribute("ads", ads);
         request.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(request, response);

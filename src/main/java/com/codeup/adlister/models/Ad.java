@@ -18,7 +18,7 @@ public class Ad {
         this.description = description;
     }
 
-    public Ad(long user_id, String title, String description,String username, long
+    public Ad(long user_id, String title, String description, String username, long
             cat_id) {
         this.userId = user_id;
         this.title = title;
@@ -111,19 +111,35 @@ public class Ad {
         this.username = username;
     }
 
-    public String getCreate_date() { return create_date; }
+    public String getCreate_date() {
+        return create_date;
+    }
 
-    public void setCreate_date(String create_date) { this.create_date = create_date; }
+    public void setCreate_date(String create_date) {
+        this.create_date = create_date;
+    }
 
-    public long getCat_id() { return cat_id; }
+    public long getCat_id() {
+        return cat_id;
+    }
 
-    public String getPic() { return pic; }
+    public String getPic() {
+        return pic;
+    }
 
-    public void setPic(String pic) { this.pic = pic; }
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
 
-    public void setCat_id(long cat_id) { this.cat_id = cat_id; }
+    public void setCat_id(long cat_id) {
+        this.cat_id = cat_id;
+    }
 
-    public String getCat_title() { return cat_title; }
+    public String getCat_title() {
+        return cat_title;
+    }
 
-    public void setCat_title(String cat_title) { this.cat_title = cat_title; }
+    public void setCat_title(String cat_title) {
+        this.cat_title = cat_title;
+    }
 }

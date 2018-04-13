@@ -19,5 +19,4 @@ public class AdDisplayServlet extends HttpServlet {
         request.setAttribute("ad", DaoFactory.getAdsDao().findById(id));
         request.getRequestDispatcher("/WEB-INF/ads/ad.jsp").forward(request,  response);
     }
-
 }
