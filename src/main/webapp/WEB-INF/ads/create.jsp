@@ -12,7 +12,7 @@
     <div class="container my-5 col-lg-8 col-md-10 col-12">
         <fieldset class="card p-5 mx-auto col-10 bg-dark text-white">
             <h1>Create a new Ad</h1>
-            <form action="/ads/create" method="post">
+            <form action="/ads/create" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input id="title" name="title" class="form-control" type="text">
@@ -31,6 +31,10 @@
                         <option name="pets" value="4">Pets</option>
                         <option name="jobs" value="5">Jobs</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="ad_image">Upload Image</label>
+                    <input class="form-control" id="ad_image" name="ad_image" type="file">
                 </div>
                 <input type="submit" class="btn btn-block btn-primary">
             </form>

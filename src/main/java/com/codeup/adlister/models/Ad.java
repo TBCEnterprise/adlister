@@ -1,7 +1,7 @@
 package com.codeup.adlister.models;
 
 public class Ad {
-    private String pic;
+//    private String pic;
     private String cat_title;
     private String create_date;
     private long cat_id;
@@ -13,9 +13,9 @@ public class Ad {
 
 //    my stuff |||||||||||||||||||||||||||||
 
-    private String image;
+    private String ad_image;
 
-    public Ad(String cat_title, String create_date, long cat_id, long id, long userId, String title, String description, String username, String image) {
+    public Ad(String cat_title, String create_date, long cat_id, long id, long userId, String title, String description, String username, String ad_image) {
         this.cat_title = cat_title;
         this.create_date = create_date;
         this.cat_id = cat_id;
@@ -24,17 +24,28 @@ public class Ad {
         this.title = title;
         this.description = description;
         this.username = username;
-        this.image = image;
+        this.ad_image = ad_image;
     }
 
 
 
-    public String getImage() {
-        return image;
+    public Ad(long id, String ad_image, String title, String description, String username, long cat_id) {
+        this.id = id;
+        this.ad_image = ad_image;
+        this.title = title;
+        this.description = description;
+        this.username = username;
+        this.cat_id = cat_id;
+
     }
 
-    public void setImage(String image) {
-        this.image = image;
+
+    public String getAd_image() {
+        return ad_image;
+    }
+
+    public void setAd_image(String ad_image) {
+        this.ad_image = ad_image;
     }
 
 //    ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -76,7 +87,7 @@ public class Ad {
 
     }
 
-    public Ad(long userId, String title, String description, String username, long cat_id, String cat_title, String create_date, String pic) {
+    public Ad(long userId, String title, String description, String username, long cat_id, String cat_title, String create_date, String ad_image) {
         this.userId = userId;
         this.title = title;
         this.description = description;
@@ -84,10 +95,10 @@ public class Ad {
         this.cat_id = cat_id;
         this.cat_title = cat_title;
         this.create_date = create_date;
-        this.pic = pic;
+        this.ad_image = ad_image;
     }
 
-    public Ad(long id, long userId, String title, String description, String username, long cat_id, String cat_title, String create_date, String pic) {
+    public Ad(long id, long userId, String title, String description, String username, long cat_id, String cat_title, String create_date, String ad_image) {
         this.id = id;
         this.userId = userId;
         this.title = title;
@@ -96,7 +107,7 @@ public class Ad {
         this.cat_id = cat_id;
         this.cat_title = cat_title;
         this.create_date = create_date;
-        this.pic = pic;
+        this.ad_image = ad_image;
     }
 
     public long getId() {
@@ -151,13 +162,13 @@ public class Ad {
         return cat_id;
     }
 
-    public String getPic() {
-        return pic;
-    }
+//    public String getPic() {
+//        return pic;
+//    }
 
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
+//    public void setPic(String pic) {
+//        this.pic = pic;
+//    }
 
     public void setCat_id(long cat_id) {
         this.cat_id = cat_id;
