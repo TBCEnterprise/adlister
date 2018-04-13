@@ -14,8 +14,12 @@ import java.io.IOException;
 @WebServlet (name = "update", urlPatterns = "/update-pass")
 public class UpdatePassServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/update-pass.jsp").forward(request,
-                                                                       response);
+        request.getSession().setAttribute("url", "/update-pass");
+        if (request.getSession().getAttribute("user") == null) {
+            response.sendRedirect("/login");
+            return;
+        }
+        request.getRequestDispatcher("/WEB-INF/update-pass.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -30,7 +34,7 @@ public class UpdatePassServlet extends HttpServlet {
 
         if (inputHasErrors) {
             request.setAttribute("message", "The passwords did not match.");
-            response.sendRedirect("/profile");
+            response.sendRedirect("/update-pass");
             return;
         }
 

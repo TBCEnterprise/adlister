@@ -14,6 +14,7 @@ import java.io.IOException;
 @WebServlet(name = "controllers.LoginServlet", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         if (request.getSession().getAttribute("user") != null) {
             response.sendRedirect("/profile");
             return;
@@ -26,14 +27,19 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         User user = DaoFactory.getUsersDao().findByUsername(username);
-
-        boolean passwordsDoMatch = Password.check(password, user.getPassword());
-
-        if (passwordsDoMatch) {
-            request.getSession().setAttribute("user", user);
-            response.sendRedirect("/profile");
-        } else {
+        if (user == null) {
+            request.getSession().setAttribute("noUser", "User does not exist");
             response.sendRedirect("/login");
+        } else {
+            boolean passwordsDoMatch = Password.check(password, user.getPassword());
+
+            if (passwordsDoMatch) {
+                request.getSession().setAttribute("user", user);
+                response.sendRedirect("/profile");
+            } else {
+                request.getSession().setAttribute("message", "Password does not match");
+                response.sendRedirect("/login");
+            }
         }
     }
 }

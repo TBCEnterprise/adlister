@@ -16,6 +16,7 @@ import java.io.IOException;
 @WebServlet(name = "update-contact", urlPatterns = "/update-contact")
 public class UpdateContactServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.getSession().setAttribute("url", "/update-contact");
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
             return;
@@ -24,10 +25,13 @@ public class UpdateContactServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = (User) request.getSession().getAttribute("user");
 
         String newEmail = request.getParameter("email");
+        if (newEmail.equalsIgnoreCase(user.getEmail())) {
+            request.getSession().setAttribute("message", "That email is already taken.");
+        }
         String newFirstName = request.getParameter("firstName");
         String newLastName = request.getParameter("lastName");
         String phoneNumber = request.getParameter("phoneNumber");
@@ -38,8 +42,8 @@ public class UpdateContactServlet extends HttpServlet {
             DaoFactory.getUsersDao().updateContact(newEmail, newFirstName, newLastName, phoneNumber, userName);
             response.sendRedirect("/profile");
         } else {
-            request.setAttribute("message", "Password does not match our records");
+            request.getSession().setAttribute("message", "Password does not match");
+            response.sendRedirect("/update-contact");
         }
-
     }
 }

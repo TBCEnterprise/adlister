@@ -3,34 +3,57 @@
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="Viewing All The Ads" />
+        <jsp:param name="title" value="Viewing All The Ads"/>
     </jsp:include>
 </head>
 <body>
-<jsp:include page="/WEB-INF/partials/navbar.jsp" />
+<jsp:include page="/WEB-INF/partials/navbar.jsp"/>
 <div class="container-fluid">
-    <a href="/ads/create" class="create-ad btn btn-secondary">Create New Ad</a>
-    <h1 class="text-center my-3">Ad listings</h1>
-    <h5 class="text-center">Create an Ad or check out what we have!</h5>
-    <div class="row col-12 justify-content-center mx-auto">
-        <c:forEach var="ad" items="${ads}">
-            <a href="/ads/ad?id=${ad.id}"
-               class="card col-xl-3 col-lg-4 col-md-5 col-12 mx-3 my-3 p-2 bg-dark text-white">
-                    <h5 class="card-title"><c:out value="${ad.title}"/></h5>
-                    <div class="body">
-                        <p><c:out value="${ad.description}"/></p>
-                        <p>Posted by: <c:out value="${ad.username}"/></p>
-                        <p>Date: <c:out value="${ad.create_date}"/></p>
-                        <c:set var="user" value="${sessionScope.user.username}"/>
-                        <c:if test="${ad.username == user}">
-                            <a href="/ads/ad_edit?id=${ad.id}" class="btn btn-secondary">Edit</a>
-                            <a href="/ad_delete?id=${ad.id}" class="btn btn-secondary">Delete</a>
-                        </c:if>
+    <h1 class="mx-auto my-4 text-center">Welcome to the Adlister!</h1>
+    <div class="container bg-dark">
+        <div id="carouselIndicators"
+             class="carousel slide d-block"
+             data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselIndicators" data-slide-to="0"
+                    class="active"></li>
+                <li data-target="#carouselIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block img-fluid p-5"
+                         src="https://images.pexels.com/photos/576739/pexels-photo-576739.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350"
+                         alt="First slide" max-width="600" height="300"
+                         style="background-color: rgba(0,0,0,0.5);">
+                    <div class="carousel-caption d-none d-sm-block">
+                        <h5>Here are our latest posts</h5>
+                        <p>Check them out!</p>
                     </div>
-
+                </div>
+                <c:forEach var="ad" items="${last}">
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid py-4"
+                             src="${ad.pic}" alt="${ad.title}" width="1100" height="500">
+                        <div class="carousel-caption d-none d-sm-block" style="background-color: rgba(0,0,0,0.5);">
+                            <h5>${ad.title}</h5>
+                            <p>${ad.description}</p>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <a class="carousel-control-prev" href="#carouselIndicators" role="button"
+               data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
             </a>
-        </c:forEach>
+            <a class="carousel-control-next" href="#carouselIndicators" role="button"
+               data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
     </div>
-</div>
+    <jsp:include page="/WEB-INF/partials/user-ads.jsp"/>
 </body>
 </html>
