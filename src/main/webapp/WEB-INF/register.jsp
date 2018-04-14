@@ -30,7 +30,8 @@
             </div>
             <div class="form-group">
                 <label for="phone">Phone number</label>
-                <input id="phone" name="phone" class="form-control" type="tel">
+                <input id="phone" name="phone" max-length="14" class="form-control"
+                       type="tel">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>

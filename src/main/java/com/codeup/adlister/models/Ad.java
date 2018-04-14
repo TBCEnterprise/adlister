@@ -55,8 +55,8 @@ public class Ad {
         this.username = username;
         this.cat_id = cat_id;
         this.cat_title = cat_title;
-        this.create_date = create_date;
         this.pic = pic;
+        this.create_date = create_date;
     }
 
     public Ad(long id, long userId, String title, String description, String username, long cat_id, String cat_title, String create_date, String pic) {

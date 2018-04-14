@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Random;
 
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 public class CreateAdServlet extends HttpServlet {
@@ -32,7 +31,8 @@ public class CreateAdServlet extends HttpServlet {
             request.getParameter("title"),
             request.getParameter("description"),
             user.getUsername(),
-            cat_id
+            cat_id,
+            request.getParameter("image")
         );
 
         long id = DaoFactory.getAdsDao().insert(ad);

@@ -42,7 +42,7 @@ public class MySQLAdsDao implements Ads {
     public Long insert(Ad ad) {
         try {
             String insertQuery = "INSERT INTO ads(userId, title, description, cat_id," +
-                    " create_date, pic) VALUES (?, ?, ?, ?, ?, ?)";
+                    " pic, create_date) VALUES (?, ?, ?, ?, ?, ?)";
 
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
 
@@ -50,8 +50,8 @@ public class MySQLAdsDao implements Ads {
             stmt.setString(2, ad.getTitle());
             stmt.setString(3, ad.getDescription());
             stmt.setLong(4, ad.getCat_id());
-            stmt.setString(5, ad.getCreate_date());
-            stmt.setString(6, ad.getPic());
+            stmt.setString(5, ad.getPic());
+            stmt.setString(6, ad.getCreate_date());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -70,8 +70,8 @@ public class MySQLAdsDao implements Ads {
                 rs.getString("username"),
                 rs.getLong("cat_id"),
                 rs.getString("cat_title"),
-                rs.getString("create_date"),
-                rs.getString("pic")
+                rs.getString("pic"),
+                rs.getString("create_date")
         );
     }
 

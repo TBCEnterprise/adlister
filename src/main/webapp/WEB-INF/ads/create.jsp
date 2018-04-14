@@ -32,6 +32,10 @@
                         <option name="jobs" value="5">Jobs</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="image">Item Image</label>
+                    <input type="url" id="image" name="image" class="form-control">
+                </div>
                 <input type="submit" class="btn btn-block btn-primary">
             </form>
         </fieldset>
