@@ -67,6 +67,7 @@ public class MySQLAdsDao implements Ads {
                 rs.getString("title"),
                 rs.getString("description"),
                 rs.getString("username"),
+                rs.getString("email"),
                 rs.getLong("cat_id"),
                 rs.getString("cat_title"),
                 rs.getString("pic"),
@@ -76,7 +77,7 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public Ad findById(long id) {
-        String query = "SELECT t.*, t2.username, t3.cat_title " +
+        String query = "SELECT t.*, t2.username, t2.email, t3.cat_title " +
                 "FROM ads t LEFT JOIN users t2 ON t.userId = t2.id " +
                 "LEFT JOIN ad_cat_piv ON cat_id " +
                 "LEFT JOIN category t3 ON ad_cat_piv.cats_id = t3.category_id " +

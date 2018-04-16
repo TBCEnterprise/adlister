@@ -10,7 +10,7 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp"/>
 <div class="container-fluid">
     <h1 class="mx-auto my-4 text-center">Welcome to the Adlister!</h1>
-    <div class="container bg-dark col-12 col-lg8 col-xl-6">
+    <div class="container bg-dark col-12 col-lg10 col-xl-6">
         <div id="carouselIndicators"
              class="carousel slide d-block"
              data-ride="carousel">

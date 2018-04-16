@@ -40,9 +40,6 @@ public class CreateAdServlet extends HttpServlet {
         java.util.Date today = new java.util.Date();
         Timestamp ts = new Timestamp(today.getTime());
 
-        System.out.println("pic = " + pic);
-        System.out.println("ts = " + ts);
-
         Ad ad = new Ad(
             user.getId(),
             request.getParameter("title"),

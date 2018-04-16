@@ -6,6 +6,7 @@ public class Ad {
     private Timestamp create_date;
     private String pic;
     private String cat_title;
+    private String email;
     private long cat_id;
     private long id;
     private long userId;
@@ -38,6 +39,19 @@ public class Ad {
         this.title = title;
         this.description = description;
         this.username = username;
+        this.cat_id = cat_id;
+        this.cat_title = cat_title;
+        this.pic = pic;
+        this.create_date = create_date;
+    }
+
+    public Ad(long id, long userId, String title, String description, String username, String email, long cat_id, String cat_title, String pic, Timestamp create_date) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.username = username;
+        this.email = email;
         this.cat_id = cat_id;
         this.cat_title = cat_title;
         this.pic = pic;
@@ -104,4 +118,8 @@ public class Ad {
     public String getCat_title() { return cat_title; }
 
     public void setCat_title(String cat_title) { this.cat_title = cat_title; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 }
