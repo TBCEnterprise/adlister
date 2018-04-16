@@ -1,5 +1,8 @@
 # Adlister
 
+## Checkout the demo!
+http://tbclister-env.smz2mnhxpg.us-east-1.elasticbeanstalk.com/ads
+
 ### Welcome to Adlister!
 
 - This project is inteded to provide a barebone version of Craigslist, with varied functionality depending on the users preference. 
